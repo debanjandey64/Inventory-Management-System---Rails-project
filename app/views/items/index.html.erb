@@ -1,0 +1,22 @@
+<% provide(:title, 'All Items') %>
+
+<main class="page-body">
+  <%= render 'shared/heading' %>
+
+  <% if logged_in? && current_user.admin? %>
+    <%= render 'manage', items: @items %>
+
+  <% else %>
+    <div class="card-columns">
+      <% @items.each do |item| %>
+        <div class="card bg-light">
+          <div class="card-body">
+            <h2 class="card-title">
+              <%= link_to item_display_name(item), item %>
+            </h2>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</main>

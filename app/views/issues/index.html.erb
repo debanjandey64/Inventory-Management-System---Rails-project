@@ -1,0 +1,72 @@
+<% provide(:title, (current_user.admin? ? "All Issues" : "Your Issues")) %>
+
+<main class="page-body">
+  <%= render 'shared/heading' %>
+
+  <% if @issues.blank? %>
+    <div>
+      Probably you haven't reported any issue till now.
+    </div>
+
+  <% else %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            Issue no.
+          </th>
+
+          <th>
+            Reported at
+          </th>
+
+          <th>
+            Item
+          </th>
+
+          <% if current_user.admin? %>
+            <th>
+              User
+            </th>
+          <% end %>
+
+          <th>
+            Solved?
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @issues.each do |issue| %>
+          <tr>
+            <td>
+              <%= link_to "ISE##{issue.id}", issue_path(issue) %>
+            </td>
+
+            <td>
+              <%= issue.created_at %>
+            </td>
+
+            <td>
+              <%= item_display_name get_item_by_id issue.item_id %>
+            </td>
+
+            <% if current_user.admin? %>
+              <td>
+                <%= get_user_name_by_id issue.user_id %>
+              </td>
+            <% end %>
+
+            <td>
+              <%= issue.solved_at %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <% if !current_user.admin? %>
+    <%= link_to "Report an issue", new_issue_path %>
+  <% end %>
+</main>

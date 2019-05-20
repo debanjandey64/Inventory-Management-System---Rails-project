@@ -1,0 +1,21 @@
+<%= render 'shared/heading' %>
+
+<main class="home-page page-body">
+  <section class="jumbotron bg-white">
+    <h1>
+      Henlo Inventory Management System
+    </h1>
+
+    <div class="lead">
+      Get your inventory related tasks done here!
+    </div>
+
+    <%= image_tag("inventory-management-featured.jpeg", alt: "Inventory Management System") %>
+
+    <div class="signup-button">
+      <% if !logged_in? %>
+        <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+      <% end %>
+    </div>
+  </section>
+</main>
