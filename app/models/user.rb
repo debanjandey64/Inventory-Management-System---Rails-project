@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :items, through: :allotments
-  has_many :issues
+  has_many :allotments, dependent: :nullify
+  has_many :issues, dependent: :nullify
   attr_accessor :remember_token
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   before_save { self.email = email.downcase }

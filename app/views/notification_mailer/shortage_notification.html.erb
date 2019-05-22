@@ -3,7 +3,7 @@
 </p>
 
 <p>
-  The available stock of the item, <strong> <%= @item.name %> </strong> is <strong> <%= @item.in_stock %> </strong> which is below the minimum required stock of the item (<strong> <%= @item.minimum_required_stock %> </strong>). You are adviced to take proper steps to check the quantity of the item.
+  The available stock of the item, <strong> <%= item_display_name @item %> </strong> is <strong> <%= @item.in_stock %> </strong> which is below the minimum required stock of the item (<strong> <%= @item.minimum_required_stock %> </strong>). You are adviced to take proper steps to check the quantity of the item.
 </p>
 
 <p>

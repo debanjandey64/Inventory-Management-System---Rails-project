@@ -1,7 +1,9 @@
 <% if partial_type == 'edit_password' %>
   <% form_path = updatepassword_user_url %>
+
 <% elsif partial_type == 'edit_user_details' %>
   <% form_path = user_url @user %>
+  
 <% else %>
   <% form_path = users_url%>
 <% end %>

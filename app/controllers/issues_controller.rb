@@ -36,7 +36,7 @@ class IssuesController < ApplicationController
     @user = User.find(@issue.user_id)
     if @issue.update_attributes(data)
       redirect_to @issue, flash: { success: "Issue marked as solved successfully." }
-      NotificationMailer.shortage_notification(@user, @issue).deliver_now
+      NotificationMailer.issue_notification(@user, @issue).deliver_now
     else
       render 'solve_issue'
     end

@@ -37,6 +37,7 @@
       <tbody>
         <% @allotments.each do |allotment| %>
           <% @item = get_item_by_id allotment.item_id %>
+          
           <tr>
             <td>
               <%= item_display_name @item %>

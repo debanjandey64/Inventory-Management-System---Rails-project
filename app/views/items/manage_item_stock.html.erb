@@ -10,16 +10,19 @@
 
         <div class="form-group">
           <%= f.label :in_stock, "Currently in stock" %>
+
           <%= f.number_field :in_stock, min: 0, max: 100, class: 'form-control' %>
         </div>
 
         <div class="form-group">
           <%= f.label :minimum_required_stock %>
+
           <%= f.number_field :minimum_required_stock, min: 0, max: 100, class: 'form-control' %>
         </div>
 
         <div class="form-group">
           <%= f.label :procurement_time_in_weeks %>
+
           <%= f.number_field :procurement_time_in_weeks, class: 'form-control' %>
         </div>
 

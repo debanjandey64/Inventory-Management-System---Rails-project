@@ -1,5 +1,4 @@
 class ItemsController < ApplicationController
-  include ItemsHelper
   before_action :logged_in_user, only: [:edit, :update, :destroy]
   before_action :get_item_by_id, only: [:edit, :update, :show, :manage_item_stock, :update_stock]
 
@@ -45,9 +44,9 @@ class ItemsController < ApplicationController
 
   def update_stock
     if @item.update_attributes(item_quant_params)
-      redirect_to action: 'index', flash: { success: "Stocks of the items were updated successfully." }
+      redirect_to items_url, flash: { success: "Stocks of the items were updated successfully." }
       if @item.in_stock < @item.minimum_required_stock
-        for user in User.where(admin: [true])
+        for user in User.where(admin: true)
           NotificationMailer.shortage_notification(user, @item).deliver_now
         end
       end

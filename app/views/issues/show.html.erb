@@ -6,6 +6,8 @@
   <%= render 'shared/details', object: @issue %>
 
   <% if current_user.admin? && @issue.solved_at.nil? %>
-    <%= link_to "Mark as Solved", solveissue_issue_path(@issue) %>
+    <div class="button-div">
+      <%= link_to "Mark as Solved", solveissue_issue_path(@issue), class: "btn btn-lg btn-primary"  %>
+    </div>
   <% end %>
 </main>

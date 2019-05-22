@@ -12,15 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2019_04_28_133036) do
 
-  create_table "allot_by_brands", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "brand_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["brand_id"], name: "index_allot_by_brands_on_brand_id"
-    t.index ["user_id"], name: "index_allot_by_brands_on_user_id"
-  end
-
   create_table "allotments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "item_id"

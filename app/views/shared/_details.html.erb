@@ -13,6 +13,21 @@
           <%= object.created_at %>
         </div>
       </div>
+
+    <% elsif attribute == "solved_at" %>
+      <div class="particular">
+        <div class="particular-type">
+          Solved?
+        </div>
+
+        <div class="particular-value">
+          <%= object.solved_at.nil? ? "No" : "Yes" %>
+        </div>
+      </div>
+      
+      <% if object.solved_at.nil? %>
+        <% break %>
+      <% end %>
     <% end %>
 
     <div class="particular">
@@ -22,13 +37,13 @@
 
       <div class="particular-value">
         <% if attribute.include? "brand" %>
-          <%= (get_brand_by_id value).name %>
+          <%= get_brand_name_by_id value %>
 
         <% elsif attribute.include? "category" %>
-          <%= (get_category_by_id value).name %>
+          <%= get_category_name_by_id value %>
 
         <% elsif attribute.include? "item" %>
-          <%= item_display_name(get_item_by_id value) %>
+          <%= (get_item_by_id value).nil? ? "N/A" : item_display_name(get_item_by_id value) %>
 
         <% elsif attribute.include? "user" %>
           <%= get_user_name_by_id value %>

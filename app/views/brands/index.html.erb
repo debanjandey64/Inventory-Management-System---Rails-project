@@ -3,19 +3,5 @@
 <main class="page-body">
   <%= render 'shared/heading' %>
 
-  <div class="card-columns">
-    <% @brands.each do |brand| %>
-      <div class="card bg-light">
-        <div class="card-body">
-          <h2 class="card-title">
-            <%= link_to brand.name, brand %>
-          </h2>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <% if logged_in? && current_user.admin? %>
-    <%= link_to "Add New...", new_brand_path %>
-  <% end %>
+  <%= render 'shared/asset_cards', asset_type: 'Brand' , assets: @brands, add_path: new_brand_path %>
 </main>

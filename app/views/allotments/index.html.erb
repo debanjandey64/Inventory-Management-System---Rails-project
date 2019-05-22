@@ -51,19 +51,25 @@
             </td>
 
             <% if current_user.admin? %>
-            <td>
-              <div class="dropdown option-dropdown">
-                <a href="#" class="nav-link dropdown-toggle user-dropdown border d-inline btn" data-toggle="dropdown">
-                  Options
-                </a>
-                <ul class="dropdown-menu user-menu">
-                  <li> <%= link_to "Manage stock", managestock_item_path(@item) %> </li>
-                  <% if allotment.dealloted_at.nil? %>
-                    <li> <%= link_to "Deallot", deallot_allotment_path(allotment) %> </li>
-                  <% end %>
-                </ul>
-              </div>
-            </td>
+              <td>
+                <div class="dropdown option-dropdown">
+                  <a href="#" class="nav-link dropdown-toggle user-dropdown border d-inline btn" data-toggle="dropdown">
+                    Options
+                  </a>
+
+                  <ul class="dropdown-menu user-menu">
+                    <li>
+                      <%= link_to "Manage stock", managestock_item_path(@item) %>
+                    </li>
+
+                    <% if allotment.dealloted_at.nil? %>
+                      <li>
+                        <%= link_to "Deallot", deallot_allotment_path(allotment) %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </td>
             <% end %>
           </tr>
         <% end %>
@@ -72,7 +78,8 @@
   <% end %>
 
   <% if current_user.admin? %>
-    <%= link_to "New Allotment...", new_allotment_path %> <br>
+    <div class="button-div">
+      <%= link_to "New Allotment", new_allotment_path, class: "btn btn-lg btn-primary" %>
+    </div>
   <% end %>
-
 </main>

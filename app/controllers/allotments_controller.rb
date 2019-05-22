@@ -15,7 +15,7 @@ class AllotmentsController < ApplicationController
     if Allotment.exists?(user_id: @allotment.user_id, item_id: @allotment.item_id, dealloted_at: nil)
       render 'new', flash: { danger: "The specific user was recently alloted this product and has not been deallocated." }
     elsif @allotment.save
-      redirect_to action: 'index', flash: { success: "Item alloted successfully." }
+      redirect_to allotments_url, flash: { success: "Item alloted successfully." }
     else
       render 'new'
     end
@@ -23,7 +23,7 @@ class AllotmentsController < ApplicationController
 
   def deallot
     if @allotment.update_attribute(:dealloted_at, DateTime.now)
-      redirect_to action: 'index', flash: { success: "Item dealloted successfully." }
+      redirect_to allotments_url, flash: { success: "Item dealloted successfully." }
     end
   end
 
