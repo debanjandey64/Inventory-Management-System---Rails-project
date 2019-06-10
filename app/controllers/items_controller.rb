@@ -23,8 +23,8 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @brand_name = Brand.find(@item.brand_id).name
-    @category_name = Category.find(@item.category_id).name
+    @brand_name = @item.brand_id.nil? ? "<Brand N/A>" : Brand.find(@item.brand_id).name
+    @category_name = @item.category_id.nil? ? "<Category N/A>" : Category.find(@item.category_id).name
   end
 
   def update
@@ -33,6 +33,11 @@ class ItemsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    Item.find(params[:id]).destroy
+    redirect_to items_url, flash: { success: "Item deleted." }
   end
 
   def allotments

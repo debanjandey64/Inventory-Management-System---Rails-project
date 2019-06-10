@@ -8,6 +8,8 @@ class AllotmentsController < ApplicationController
 
   def new
     @allotment = Allotment.new
+    @non_admins = User.where(admin: false)
+    @not_alloted_items = Item.where.not(id: (Allotment.select(:item_id).distinct))
   end
 
   def create

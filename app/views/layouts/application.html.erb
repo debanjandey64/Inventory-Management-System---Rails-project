@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> <%= full_title(yield(:title)) %> </title>
+    <title>
+      <%= full_title(yield(:title)) %>
+    </title>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -38,14 +41,6 @@
               <%= link_to "Users", users_path if logged_in? %>
             </li>
 
-            <li class="nav-item">
-              <%= link_to "Issues", issues_path if logged_in? %>
-            </li>
-
-            <li class="nav-item">
-              <%= link_to "Allotments", allotments_path if logged_in? && current_user.admin? %>
-            </li>
-
             <li class="nav-item dropdown">
               <a href="#" class="dropdown-toggle user-dropdown" data-toggle="dropdown">
                 <% if logged_in? %>
@@ -62,8 +57,19 @@
                     <%= link_to "Profile", current_user %>
                   </li>
 
+                  <li class="nav-item">
+                    <%= link_to (current_user.admin? ? "All" : "My") + " Issues", issues_path if logged_in? %>
+                  </li>
+
+                  <li class="nav-item">
+                    <% if logged_in? %>
+                      <%= link_to "All Allotments", allotments_path if current_user.admin? %>
+                      <%= link_to "My Allotments", currentallotments_user_path(current_user) if !current_user.admin? %>
+                    <% end %>
+                  </li>
+
                   <li>
-                    <%= link_to "My Allotments", currentallotments_user_path(current_user) %>
+
                   </li>
 
                   <li class="divider"></li>
@@ -82,7 +88,7 @@
         </nav>
       </div>
     </header>
-    
+
     <div class="container">
       <%= yield %>
     </div>

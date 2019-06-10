@@ -3,7 +3,7 @@ module AllotmentsHelper
     if allotment.dealloted_at.nil?
       "** Currently alloted. **"
     else
-      "Dealloted at : #{allotment.dealloted_at}"
+      allotment.dealloted_at
     end
   end
 end

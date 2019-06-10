@@ -1,7 +1,6 @@
 module BrandsHelper
   def get_brand_name_by_id(id)
-    brand = Brand.find(id)
-    return "N/A" if brand.nil?
-    brand.name
+    return "<Brand N/A>" if id.nil?
+    Brand.find(id).name
   end
 end

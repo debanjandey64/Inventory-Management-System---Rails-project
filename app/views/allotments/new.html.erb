@@ -1,4 +1,5 @@
 <% provide(:title, "New Allotment") %>
+
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
     <main class="page-body">
@@ -11,7 +12,7 @@
           <%= f.label :user_id %>
 
           <div class="select-attribute">
-            <%= f.collection_select(:user_id, User.where(admin: false), :id, :name, include_blank: '--Not Allocated--') %>
+            <%= f.collection_select(:user_id, @non_admins, :id, :name, include_blank: '--Not Allocated--') %>
           </div>
         </div>
 
@@ -19,7 +20,7 @@
           <%= f.label :item_id %>
 
           <div class="select-attribute">
-            <%= f.collection_select(:item_id, Item.where.not(id: (Allotment.select(:item_id).distinct)), :id, :item_display_name, include_blank: '--Not Allocated--') %>
+            <%= f.collection_select(:item_id, @not_alloted_items, :id, :item_display_name, include_blank: '--Not Allocated--') %>
           </div>
         </div>
 
