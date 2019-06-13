@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  include ApplicationHelper
   before_action :logged_in_user, only: [:edit, :update, :destroy]
   before_action :get_item_by_id, only: [:edit, :update, :show, :manage_item_stock, :update_stock]
 
@@ -11,7 +12,8 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
+    item_data = item_params.merge(in_stock: item_params[:total_stock])
+    @item = Item.new(item_data)
     if @item.save
       redirect_to @item, flash: { success: "Item created successfully." }
     else
@@ -28,8 +30,12 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if @item.update_attributes(item_params)
+    previous_quantity = @item.total_stock
+    if((item_params[:total_stock].to_i - previous_quantity + @item.in_stock) < 0)
+      redirect_to edit_item_path(@item), flash: { warning: "Currently more items are alloted than entered values." }
+    elsif @item.update_attributes(item_params)
       redirect_to @item, flash: { success: "Item updated successfully." }
+      @item.in_stock += (@item.total_stock - previous_quantity)
     else
       render 'edit'
     end
@@ -44,29 +50,9 @@ class ItemsController < ApplicationController
     @allotments = Allotment.where(item_id: [params[:id]])
   end
 
-  def manage_item_stock
-  end
-
-  def update_stock
-    if @item.update_attributes(item_quant_params)
-      redirect_to items_url, flash: { success: "Stocks of the items were updated successfully." }
-      if @item.in_stock < @item.minimum_required_stock
-        for user in User.where(admin: true)
-          NotificationMailer.shortage_notification(user, @item).deliver_now
-        end
-      end
-    else
-      render 'manage_item_stock'
-    end
-  end
-
   private
     def item_params
-      params.require(:item).permit(:name, :category_id, :brand_id, :price, :quantity, :price)
-    end
-
-    def item_quant_params
-      params.require(:item).permit(:in_stock, :minimum_required_stock, :procurement_time_in_weeks)
+      params.require(:item).permit(:name, :category_id, :brand_id, :price, :quantity, :price, :total_stock, :minimum_required_stock, :procurement_time_in_weeks)
     end
 
     def get_item_by_id

@@ -21,15 +21,7 @@
           </th>
 
           <th>
-            Currently in stock
-          </th>
-
-          <th>
-            Minimum Required Stock
-          </th>
-
-          <th>
-            Procurement Time
+            Allotment quantity
           </th>
         </tr>
       </thead>
@@ -37,7 +29,7 @@
       <tbody>
         <% @allotments.each do |allotment| %>
           <% @item = get_item_by_id allotment.item_id %>
-          
+
           <tr>
             <td>
               <%= item_display_name @item %>
@@ -48,15 +40,7 @@
             </td>
 
             <td class="count">
-              <%= @item.in_stock %>
-            </td>
-
-            <td class="count">
-              <%= @item.minimum_required_stock %>
-            </td>
-
-            <td class="count">
-              <%= @item.procurement_time_in_weeks %> weeks
+              <%= allotment.allotment_quantity %>
             </td>
           </tr>
         <% end %>

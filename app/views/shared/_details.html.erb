@@ -3,10 +3,15 @@
 
 <section>
   <% (object.attributes.reject{ |attr| attr.in? unaccessible_attributes }).each do |attribute, value| %>
-    <% if attribute == "issue_description" %>
+    <% if attribute.in? ["issue_description", "dealloted_at"] %>
       <div class="particular">
         <div class="particular-type">
-          Reported at
+          <% case attribute %>
+            <% when "issue_description" %>
+              Reported at
+            <% when "dealloted_at" %>
+              Alloted at
+          <% end %>
         </div>
 
         <div class="particular-value">

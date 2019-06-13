@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_02_105619) do
+ActiveRecord::Schema.define(version: 2019_06_13_112016) do
 
   create_table "allotments", force: :cascade do |t|
     t.integer "user_id"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_06_02_105619) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "dealloted_at"
+    t.integer "allotment_quantity"
     t.index ["item_id"], name: "index_allotments_on_item_id"
     t.index ["user_id"], name: "index_allotments_on_user_id"
   end
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 2019_06_02_105619) do
     t.integer "minimum_required_stock"
     t.integer "procurement_time_in_weeks"
     t.string "quantity"
+    t.integer "total_stock"
     t.index ["brand_id"], name: "index_items_on_brand_id"
     t.index ["category_id"], name: "index_items_on_category_id"
   end
